@@ -6,6 +6,8 @@ __pycache__/
 # Ambientes virtuais (por exemplo, criados com virtualenv ou venv)
 venv/
 env/
+.venv
+/venv
 maquinavirtual/
 .maquinavirtual
 /maquinavirtual
