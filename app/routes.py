@@ -7,10 +7,10 @@ def index():
     return render_template('index.html', title = 'home')
 
 
-
 @app.route('/sobre')
 def sobre():
     return render_template('sobre.html', title = 'sobre')
+
 
 @app.route('/projetos')
 def projetos():
