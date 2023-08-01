@@ -8,6 +8,7 @@ venv/
 env/
 maquinavirtual/
 .maquinavirtual
+/maquinavirtual
 
 # Arquivos de configuração e de ambiente
 *.env
