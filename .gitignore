@@ -1,0 +1,65 @@
+# Arquivos e diretórios gerados pelo sistema operacional
+*.pyc
+*.pyo
+__pycache__/
+
+# Ambientes virtuais (por exemplo, criados com virtualenv ou venv)
+venv/
+env/
+maquinavirtual/
+
+# Arquivos de configuração e de ambiente
+*.env
+.env
+config.py
+
+# Logs e arquivos temporários
+*.log
+*.swp
+*.tmp
+
+# Banco de dados
+db.sqlite3
+db.sqlite3-journal
+
+# Dependências e pacotes instalados
+lib/
+lib64/
+bin/
+include/
+share/
+pyvenv.cfg
+pip-selfcheck.json
+
+# Arquivos de saída e caches
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Outros arquivos específicos do Flask
+instance/
+
+# Arquivos gerados por IDEs e editores
+.vscode/
+.idea/
+*.pydevproject
+*.pyc
+*.project
+*.pyt
+*.pyw
+*.pyo
+*.komodoproject
+_kdev*
+*.stackdump
+
+# Arquivos de configuração específicos de sistemas operacionais
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+ehthumbs.db
+desktop.ini
+
+# Arquivos de configuração específicos do editor Vim
+.*.sw[a-z]
