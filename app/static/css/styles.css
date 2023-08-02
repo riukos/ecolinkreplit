@@ -1,47 +1,60 @@
 
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  height: 100vh;
 
-        header {
-            background-color: #555;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-        nav {
-            background-color: #444;
-            padding: 10px 0;
-            text-align: center;
-        }
+header {
+    background-color: #555;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
 
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-            margin: 0 5px;
-            border-radius: 5px;
-        }
+nav {
+    background-color: #444;
+    padding: 10px 0;
+    text-align: center;
+}
 
-        nav a:hover {
-            background-color: #555;
-        }
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    margin: 0 5px;
+    border-radius: 5px;
+}
 
-        section {
-            padding: 40px;
-            text-align: center;
-        }
+nav a:hover {
+    background-color: #555;
+}
 
-        h1 {
-            font-size: 36px;
-            color: #333;
-        }
+section {
+    padding: 40px;
+    text-align: center;
+}
 
-        p {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #555;
-        }
+h1 {
+    font-size: 36px;
+    color: #333;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+}
+footer {
+    text-align: center;
+    margin-top: 20px; /* Adicione margem superior para separar o footer do conteúdo acima */
+}
+
+main {
+min-height:500px;
+}
