@@ -58,3 +58,18 @@ footer {
 main {
 min-height:500px;
 }
+
+.conteudo{
+    width: 40%;
+    background: #555;
+    margin: auto;
+    padding: 20px;
+    border-radius: 5%;
+    box-shadow: 0.5 0.5 rgba(109, 13, 13, 0.267);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

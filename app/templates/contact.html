@@ -1,39 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Entre em Contato</h1>
+
+
+<div class="conteudo">
+    <h1 class="mb-4">Entre em Contato</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for messagem in messages %}
+       {{ messagem }}
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
         <form action="/contact" method="post">
-            <div class="form-group">
+            {{formulario.csrf_token}}
                 <label for="name">Nome:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-          
-            <div class="form-group">
+                {{formulario.name}}
                 <label for="name">email:</label>
-                <input type="text" class="form-control" id="email" name="email" required>
-            </div>
-          
-            <div class="form-group">
+                {{formulario.email}}
                 <label for="message">Mensagem:</label>
-                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary">Enviar</button>
-        </form>
-
-        {% if name and message %}
-        <div class="mt-4">
-            <h2>Mensagem enviada:</h2>
-            <p><strong>Nome:</strong> {{ name }}</p>
-            <p><strong>Mensagem:</strong> {{ message }}</p>
-        </div>
-        {% endif %}
-    </div>
-
-    <!-- Adicione o link do Bootstrap JS (opcional, mas pode ser necessário para alguns recursos do Bootstrap) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+                {{formulario.message}}
+            {{formulario.enviar}}
+        </form>   
+</div>
 {% endblock %}
