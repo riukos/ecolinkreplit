@@ -58,7 +58,7 @@ Resumindo:
 
 ## Autores
 
-- [@FelipeRiukos](https://www.github.com/FelipeRiukos)
+- [@Riukos](https://www.github.com/riukos)
 
 
 ## Licença
