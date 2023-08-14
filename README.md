@@ -42,11 +42,17 @@ Agora você pode usar o seguinte comando para gerar uma migração baseada nos m
 flask db migrate -m "Nome da Migração"
 ```
 Resumindo:
-```bash flask db init ``` 
+```bash
+ flask db init 
+ ``` 
 - Uma vez para inicializar o sistema de migração.
-```bash flask db migrate ```
+```bash
+ flask db migrate
+ ```
 - Sempre que você fizer alterações em seus modelos.
-```bash flask db upgrade ```
+```bash
+ flask db upgrade 
+ ```
 - Sempre que você quiser aplicar as migrações pendentes ao banco de dados.
 
 ## Autores
