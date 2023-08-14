@@ -42,6 +42,7 @@ Agora você pode usar o seguinte comando para gerar uma migração baseada nos m
 flask db migrate -m "Nome da Migração"
 ```
 Resumindo:
+
 ```bash
  flask db init 
  ``` 
