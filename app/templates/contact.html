@@ -10,7 +10,14 @@
        {{ messagem }}
       {% endfor %}
     {% endif %}
-  {% endwith %}
+    {% endwith %}
+    {% if dados_formulario %}
+        <p> Dados do Formulario</p>
+        <p> Nome : {{dados_formulario.name}}</p>
+        <p> email : {{dados_formulario.email}}</p>
+        <p> message : {{dados_formulario.message}}</p>
+        {% endif %}
+
         <form action="/contact" method="post">
             {{formulario.csrf_token}}
                 <label for="name">Nome:</label>
@@ -20,6 +27,7 @@
                 <label for="message">Mensagem:</label>
                 {{formulario.message}}
             {{formulario.enviar}}
-        </form>   
+        </form>  
+<p>{{name}}</p> 
 </div>
 {% endblock %}

@@ -27,6 +27,12 @@ quarto passo: instale o flask
 ```bash
   pip install flask
 ```
+```bash
+pip freeze > requiriments.txt    
+pip install -r requiriments.txt
+```
+
+
 ## Autores
 
 - [@octokatherine](https://www.github.com/octokatherine)

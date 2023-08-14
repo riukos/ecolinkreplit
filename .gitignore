@@ -3,6 +3,7 @@
 *.pyo
 __pycache__/
 
+
 # Ambientes virtuais (por exemplo, criados com virtualenv ou venv)
 venv/
 env/
@@ -16,7 +17,7 @@ maquinavirtual/
 *.env
 .env
 config.py
-
+app.config
 # Logs e arquivos temporários
 *.log
 *.swp
@@ -25,6 +26,10 @@ config.py
 # Banco de dados
 db.sqlite3
 db.sqlite3-journal
+app.db
+/migrations
+migrations/
+
 
 # Dependências e pacotes instalados
 lib/
