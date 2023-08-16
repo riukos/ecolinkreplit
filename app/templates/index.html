@@ -1,12 +1,18 @@
 {% extends 'base.html' %}
-{% block content %}
-<body>
-    <section id="sobre">
-        <h1>Pagina inicial</h1>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolorum iusto quisquam, facilis esse, at est non quibusdam quia dolorem mollitia delectus eaque adipisci 
-            suscipit distinctio. Praesentium sed consequatur tenetur ullam.
-        </p>
-    </section>
 
-</body>
+{% block title %}
+{{title}} - Página Inicial
+{% endblock %}
+
+{% block content %}
+<section id="sobre">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Página Inicial</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorum iusto quisquam, facilis esse, at est non quibusdam quia dolorem mollitia delectus eaque adipisci suscipit distinctio. Praesentium sed consequatur tenetur ullam.</p>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
