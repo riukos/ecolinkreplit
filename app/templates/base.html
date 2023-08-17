@@ -6,6 +6,7 @@
     <title>{% block title %}{{title}}{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 </head>
 
 <body>
@@ -17,8 +18,13 @@
         <a href="sobre">Sobre</a>
         <a href="projetos">Projetos</a>
         <a href="contact">Contact</a>
-        <a href="cadastro">Cadastre-se</a>
-        <a href="login">Login</a>
+        {% if session['email'] %}
+            <span>Olá {{ session['name'] }}</span>
+            <a href="logout"><i class="bi bi-box-arrow-right"></i></a>
+        {% else %}
+            <a href="cadastro">Cadastre-se</a>
+            <a href="login">Login</a>
+        {% endif %}
     </nav>
     <main>
         <!-- Neste bloco principal, serão inseridos os conteúdos específicos de cada página -->

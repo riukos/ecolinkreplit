@@ -1,7 +1,8 @@
-from app import app, db
+from app import app, db, bcrypt
 from flask import Flask, render_template, request, url_for, redirect, flash, session
 from app.forms import Contato, Cadastro
 from app.models import ContatoModels, CadastroModels
+
 import time
 
 @app.route('/')
@@ -42,8 +43,10 @@ def cadastro():
             name = cadastro.name.data
             email = cadastro.email.data
             password = cadastro.password.data
+            hash_password = bcrypt.generate_password_hash(password).decode('utf-8')
+
             telefone = cadastro.telefone.data
-            novo_contato = CadastroModels(name=name, email=email, password =password, telefone=telefone)
+            novo_contato = CadastroModels(name=name, email=email, password =hash_password, telefone=telefone)
             db.session.add(novo_contato)
             db.session.commit()
             flash('Você foi cadastrado com sucesso')
@@ -57,12 +60,18 @@ def login():
     if request.method == "POST":
         email = request.form.get('email')
         password = request.form.get('password')
-        user = CadastroModels.query.filter_by(email=email, password=password).first()
-        if user and user.password == password:
-            session['email'] = user.id
+
+        user = CadastroModels.query.filter_by(email=email).first()
+        if user and bcrypt.check_password_hash(user.password, password):
+            session['email'] = user.email
+            session['name'] = user.name
             flash('Seja bem vindo')
-            time.sleep(2)
+            return redirect(url_for("index"))
         else:
             flash("Email ou senha incorreto")
-        return redirect(url_for("index"))
-    return render_template('login.html', title = 'login')
+    return render_template('login.html', title='Login')
+@app.route('/logout')
+def logout():
+    session.pop('email', None)
+    session.pop('name', None)
+    return redirect(url_for('login'))
