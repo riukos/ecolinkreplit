@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<main>
+    <div class="conteudo">
+    <h2>Editar Perfil</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for messagem in messages %}
+          <div class="alert alert-success" role="alert">
+                {{ messagem }}
+          </div>
+           
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="name">Nome</label>
+            <input class="form-control" id="name" name="name" value="{{ session['name'] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ session['email'] }}" required>
+        </div>
+        <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input type="telefone" class="form-control" id="telefone" name="telefone" value="{{ session['telefone'] }}"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" value="{{ session['password'] }}"
+                required>
+        </div>
+        <!-- Outros campos de edição aqui... -->
+        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+    </form>
+    </div>
+</main>
+{% endblock %}

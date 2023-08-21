@@ -62,16 +62,41 @@ def login():
         password = request.form.get('password')
 
         user = CadastroModels.query.filter_by(email=email).first()
-        if user and bcrypt.check_password_hash(user.password, password):
+        password2 = bcrypt.check_password_hash(user.password, password)
+        if user and password2:
             session['email'] = user.email
             session['name'] = user.name
+            session['telefone'] = user.telefone
+            session['password'] = user.password
             flash('Seja bem vindo')
             return redirect(url_for("index"))
         else:
             flash("Email ou senha incorreto")
     return render_template('login.html', title='Login')
+
+@app.route('/editarusuario', methods=['GET', 'POST'])
+def editarusuario():
+    if 'email' not in session:
+        return redirect(url_for('login'))
+    usuario = CadastroModels.query.filter_by(email = session['email']).first()
+    if request.method == 'POST':
+        usuario.name = request.form.get('name')
+        usuario.email = request.form.get('email')
+        usuario.telefone = request.form.get('telefone')
+        password = request.form.get('password')
+        usuario.senha = bcrypt.generate_password_hash(password).decode('utf-8')
+        db.session.commit()
+        session['name'] = usuario.name
+        session['email'] = usuario.email        
+        session['telefone'] = usuario.telefone
+        session['password'] = usuario.password
+        flash('Seus dados foram atualizados com sucesso!')
+    return render_template('editarusuario.html', titulo= 'Editar', usuario = usuario)
+
 @app.route('/logout')
 def logout():
     session.pop('email', None)
     session.pop('name', None)
+    session.pop('password', None)
+    session.pop('telefone', None)
     return redirect(url_for('login'))
