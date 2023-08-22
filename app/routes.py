@@ -38,6 +38,7 @@ def contact():
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     cadastro = Cadastro()
+    
     if cadastro.validate_on_submit():
         try:
             name = cadastro.name.data
@@ -46,14 +47,40 @@ def cadastro():
             hash_password = bcrypt.generate_password_hash(password).decode('utf-8')
 
             telefone = cadastro.telefone.data
-            novo_contato = CadastroModels(name=name, email=email, password =hash_password, telefone=telefone)
-            db.session.add(novo_contato)
+            
+            # Novos campos para CPF e Endereço
+            cpf = cadastro.cpf.data
+            rua = cadastro.rua.data
+            numero = cadastro.numero.data
+            bairro = cadastro.bairro.data
+            cidade = cadastro.cidade.data
+            uf = cadastro.uf.data
+            cep = cadastro.cep.data
+            
+            # Criar instância do modelo de usuário
+            novo_usuario = CadastroModels(
+                name=name,
+                email=email,
+                password=hash_password,
+                telefone=telefone,
+                cpf=cpf,
+                rua=rua,
+                numero=numero,
+                bairro=bairro,
+                cidade=cidade,
+                uf=uf,
+                cep=cep
+                )
+            
+            db.session.add(novo_usuario)
             db.session.commit()
             flash('Você foi cadastrado com sucesso')
         except Exception as e:
             flash('Ocorreu um erro ao cadastrar!, Entre em contato com o suporte: admin@admin.com')
-            print(str(e))     
-    return render_template('cadastro.html', title = 'Cadastro', cadastro = cadastro)
+            print(str(e))
+            
+    return render_template('cadastro.html', title='Cadastro', cadastro=cadastro)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -62,12 +89,21 @@ def login():
         password = request.form.get('password')
 
         user = CadastroModels.query.filter_by(email=email).first()
-        password2 = bcrypt.check_password_hash(user.password, password)
-        if user and password2:
+        
+        if user and bcrypt.check_password_hash(user.password, password):
             session['email'] = user.email
             session['name'] = user.name
             session['telefone'] = user.telefone
             session['password'] = user.password
+            session['cpf'] = user.cpf
+            session['rua'] = user.rua
+            session['numero'] = user.numero
+            session['bairro'] = user.bairro
+            session['cidade'] = user.bairro
+            session['uf'] = user.uf
+            session['cep'] = user.cep
+
+
             flash('Seja bem vindo')
             return redirect(url_for("index"))
         else:
@@ -78,20 +114,67 @@ def login():
 def editarusuario():
     if 'email' not in session:
         return redirect(url_for('login'))
-    usuario = CadastroModels.query.filter_by(email = session['email']).first()
+    
+    usuario = CadastroModels.query.filter_by(email=session['email']).first()
+    
     if request.method == 'POST':
-        usuario.name = request.form.get('name')
+        usuario.nome = request.form.get('name')
         usuario.email = request.form.get('email')
         usuario.telefone = request.form.get('telefone')
+        
+        # Atualizar senha, se fornecida no formulário
         password = request.form.get('password')
-        usuario.senha = bcrypt.generate_password_hash(password).decode('utf-8')
+        if password:
+            usuario.password = bcrypt.generate_password_hash(password).decode('utf-8')
+        
+        # Atualizar CPF
+        usuario.cpf = request.form.get('cpf')
+        
+        # Atualizar Endereço
+        usuario.rua = request.form.get('rua')
+        usuario.numero = request.form.get('numero')
+        usuario.bairro = request.form.get('bairro')
+        usuario.cidade = request.form.get('cidade')
+        usuario.uf = request.form.get('uf')
+        usuario.cep = request.form.get('cep')
+        
         db.session.commit()
-        session['name'] = usuario.name
-        session['email'] = usuario.email        
+        
+        # Atualizar os dados na sessão (se necessário)
+        session['name'] = usuario.nome
+        session['email'] = usuario.email
         session['telefone'] = usuario.telefone
-        session['password'] = usuario.password
+        session['cpf'] = usuario.cpf
+        session['rua'] = usuario.rua
+        session['numero'] = usuario.numero
+        session['bairro'] = usuario.bairro
+        session['cidade'] = usuario.bairro
+        session['uf'] = usuario.uf
+        session['cep'] = usuario.cep
+
         flash('Seus dados foram atualizados com sucesso!')
-    return render_template('editarusuario.html', titulo= 'Editar', usuario = usuario)
+        
+    return render_template('editarusuario.html', titulo='Editar', usuario=usuario)
+
+
+
+@app.route('/delete_conta', methods=['GET', 'POST'])
+def delete_conta():
+    if 'email' not in session:
+        return redirect(url_for('login'))
+    usuario = CadastroModels.query.filter_by(email = session['email']).first()
+    db.session.delete(usuario)
+    db.session.commit()
+    session.clear()
+    flash('Sua conta foi deletada!')
+
+    return redirect(url_for('cadastro'))
+    
+
+def new_func(usuario):
+    return usuario
+
+
 
 @app.route('/logout')
 def logout():
@@ -99,4 +182,13 @@ def logout():
     session.pop('name', None)
     session.pop('password', None)
     session.pop('telefone', None)
+    session.pop('cpf', None)
+    session.pop('rua', None)
+    session.pop('numero', None)
+    session.pop('bairro', None)
+    session.pop('cidade', None)
+    session.pop('uf', None)
+    session.pop('cep', None)
+
+
     return redirect(url_for('login'))
