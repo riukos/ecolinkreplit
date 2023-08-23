@@ -148,7 +148,7 @@ def editarusuario():
         session['rua'] = usuario.rua
         session['numero'] = usuario.numero
         session['bairro'] = usuario.bairro
-        session['cidade'] = usuario.bairro
+        session['cidade'] = usuario.cidade
         session['uf'] = usuario.uf
         session['cep'] = usuario.cep
 

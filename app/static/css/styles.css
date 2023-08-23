@@ -65,7 +65,7 @@ footer {
     width: 100%;
     background-color: #f8f9fa; /* Cor de fundo do footer */
     text-align: center;
-    padding: 10px 0; /* Espaçamento interno do footer */
+    padding: 5px 0; /* Espaçamento interno do footer */
 }
 
 main {
@@ -79,6 +79,17 @@ min-height:500px;
     padding: 20px;
     border-radius: 5%;
     box-shadow: 0.5 0.5 rgba(109, 13, 13, 0.267);
+}
+
+.conteudo2{
+    display: flex;
+    width: 60%;
+    background: #555;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 1%;
+    box-shadow: 0.5 0.5 rgba(41, 184, 194, 0.267);
+    color: #f8f9fa;
 }
 
 form {
