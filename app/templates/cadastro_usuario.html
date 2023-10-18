@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+
+
+  <main class="main-base">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for mensagem in messages %}
+    <div class="alert alert-success" role="alert">
+      {{ mensagem }}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+    <article class="cadastro-funcionario">
+
+      <form action="{{ url_for('cadastro_usuario') }}" method="post">
+          {{ cadastro_usuario.csrf_token }}
+            <h2 class="titulo-form">Cadastro do Funcionario</h2>
+
+            <label class="texto-label" for="nome">Nome:</label>
+            {{ cadastro_usuario.nome(class="form-control", placeholder="Digite aqui o seu nome") }}
+
+            <label class="texto-label" for="sobrenome">Sobrenome:</label>
+            {{ cadastro_usuario.sobrenome(class="form-control", placeholder="Digite aqui o seu sobrenome") }}
+
+            <label class="texto-label" for="possuiNomeSocial">Possui nome social?</label>
+            <select id="possuiNomeSocial" name="possuiNomeSocial">
+                <option value="nao">Não</option>
+                <option value="sim">Sim</option>
+            </select>
+
+
+            <div id="nomeSocialField" style="display: none;">
+                <label class="texto-label" for="nomeSocial">Nome Social:</label>
+                {{ cadastro_usuario.nomesocial(class="form-control", placeholder="Digite aqui o seu nomesocial") }}
+            </div>
+
+            <script>
+                var possuiNomeSocialSelect = document.getElementById('possuiNomeSocial');
+                var nomeSocialField = document.getElementById('nomeSocialField');
+
+                possuiNomeSocialSelect.addEventListener('change', function () {
+                    if (possuiNomeSocialSelect.value === 'sim') {
+                        nomeSocialField.style.display = 'block';
+                        document.getElementById('nomeSocial').required = true;
+                    } else {
+                        nomeSocialField.style.display = 'none';
+                        document.getElementById('nomeSocial').required = false;
+                    }
+                });
+            </script>
+
+            <label class="texto-label" for="genero">Gênero:</label>
+                {{ cadastro_usuario.genero(class="form-control", placeholder="Digite aqui o seu nome") }}
+
+
+            <label class="texto-label" for="cpf">CPF:</label>
+                {{ cadastro_usuario.cpf(class="form-control", placeholder="Digite aqui o seu CPF", id="cpf") }}
+            <label class="texto-label" for="rg">RG</label>
+                {{ cadastro_usuario.rg(class="form-control", placeholder="Digite aqui o seu RG", id="rg", onkeyup="validateRG()")}}
+
+
+
+            <label class="texto-label" for="data_nascimento">Data de nascimento:</label>
+            {{ cadastro_usuario.data_nascimento(class="form-control", placeholder="Digite aqui a sua data de nascimento") }}
+
+
+            <label class="texto-label" for="tipo">Tipo de Usuário:</label>
+            {{ cadastro_usuario.tipo(class="form-control", id="tipo") }}
+            <label class="texto-label" for="cnpj">CNPJ</label>
+            {{ cadastro_usuario.cnpj(class="form-control", placeholder="Digite aqui o seu CNPJ", id="cnpj") }}
+
+            <div class="input-group">
+                <div class="third-width">
+                    <label class="texto-label" for="cep">CEP:</label>
+                    {{ endereco.cep(class="form-control", id='inputCEP', placeholder="Digite aqui seu CEP") }}
+                    <button class="botao-entrar" type="button" name="submit_cep" onclick="buscarEndereco()">Buscar</button>
+                </div>
+                <div class="two-thirds-width">
+                    <label class="texto-label" for="rua">Rua:</label>
+                    {{ endereco.rua(class="form-control", id="inputRua", placeholder="Digite aqui a sua rua") }}
+                </div>
+                <div class="two-thirds-width">
+                    <label class="texto-label" for="complemento">Complemento:</label>
+                    {{ endereco.complemento(class="form-control", placeholder="Digite o complento") }}
+                </div>
+
+                <div class="input-group">
+                <div class="third-width">
+                    <label class="texto-label" for="numero">Número:</label>
+                    {{ endereco.numero(class="form-control", placeholder="Digite o numero da residencia") }}
+                </div>
+
+                <div class="third-width">
+                    <label class="texto-label" for="bairro">Bairro:</label>
+                    {{ endereco.bairro(class="form-control", id="inputBairro", placeholder="Digite aqui o seu bairro") }}
+                </div>
+
+                <div class="third-width">
+                    <label class="texto-label" for="cidade">Cidade:</label>
+                    {{ endereco.cidade(class="form-control", id="inputCidade", placeholder="Digite aqui a sua cidade") }}
+                </div>
+                <div class="third-width">
+                <label class="texto-label" for="uf">Estado:</label>
+                {{ endereco.uf(class="form-control", id="inputUF", placeholder="Digite a UF do seu Estado") }}
+
+              </div>
+
+
+            <div class="input-group">
+                    <label class="texto-label" for="telefone">Telefone:</label>
+                    {{ cadastro_usuario.telefone(class="form-control", placeholder="Digite aqui o seu telefone", id="telefone",
+        onkeyup="validateTelefone()") }}
+            <span id="telefoneValid">Formato de telefone (com ou sem código 55)</span>
+            </div>
+
+            <label class="texto-label" for="email">Email:</label>
+              {{ cadastro_usuario.email(class="form-control", placeholder="Digite aqui o seu e-mail", id="email",
+        onkeyup="validateEmail()") }}
+        <span id="emailValid">Formato de e-mail</span>
+            <div class="input-group">
+                <div class="half-width">
+                    <label class="texto-label" for="senha">Senha:</label>
+                    {{ cadastro_usuario.senha(class="form-control", placeholder="Digite aqui a sua senha", id="password",
+        onkeyup="validatePassword()") }}
+                    <ul id="passwordCriteria">
+                      <li id="length">8 caracteres</li>
+                      <li id="number">1 um número</li>
+                      <li id="specialChar">1 um caractere especial ex.: $, !, @, %, &</li>
+                      <li id="whitespace">Nenhum espaço em branco à esquerda ou à direita</li>
+                    </ul>
+                </div>
+              </div>
+            {{ cadastro_usuario.enviar(class="botao-entrar")}}
+        </form>
+
+    </article>
+    <script>
+      function validatePassword() {
+        const password = document.getElementById("password").value;
+
+        // Check for length
+        if (password.length >= 8) {
+          document.getElementById("length").style.color = "green";
+        } else {
+          document.getElementById("length").style.color = "red";
+        }
+
+        // Check for number
+        if (/\d/.test(password)) {
+          document.getElementById("number").style.color = "green";
+        } else {
+          document.getElementById("number").style.color = "red";
+        }
+
+        // Check for special character
+        if (/[!@#$%^&*()_+\-=\[\]{};:'"\\|,.<>\/?]+/.test(password)) {
+          document.getElementById("specialChar").style.color = "green";
+        } else {
+          document.getElementById("specialChar").style.color = "red";
+        }
+
+        // Check for whitespace at the beginning or end
+        if (/^\s|\s$/.test(password)) {
+          document.getElementById("whitespace").style.color = "red";
+        } else {
+          document.getElementById("whitespace").style.color = "green";
+        }
+      }
+      function validateRG() {
+        const rg = document.getElementById("rg").value;
+
+        // Expressão regular para validar RG
+        const Regex = /^d{1,10}$/;
+
+        if (regex.test(rg)) {
+          document.getElementById("rgValid").style.color = "green";
+        } else {
+          document.getElementById("rgValid").style.color = "red";
+        }
+      }
+      function validateEmail() {
+        const email = document.getElementById("email").value;
+
+        const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+
+        if (regex.test(email)) {
+          document.getElementById("emailValid").style.color = "green";
+        } else {
+          document.getElementById("emailValid").style.color = "red";
+        }
+      }
+
+      function validateTelefone() {
+        const telefone = document.getElementById("telefone").value;
+
+        const regex = /^(?:\+?55)?\s?(?:\(?[1-9][0-9]\)?\s?)?(?:[2-9][0-9]{3,4}\-?[0-9]{4})$/;
+
+        if (regex.test(telefone)) {
+          document.getElementById("telefoneValid").style.color = "green";
+        } else {
+          document.getElementById("telefoneValid").style.color = "red";
+        }
+      }
+
+    </script>
+    <script>
+      function buscarEndereco() {
+          let cep = document.getElementById('inputCEP').value;
+          if (cep.length === 8) {
+              fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                  .then(response => response.json())
+                  .then(data => {
+                      if (!data.erro) {
+                          document.getElementById('inputRua').value = data.logradouro;
+                          document.getElementById('inputBairro').value = data.bairro;
+                          document.getElementById('inputCidade').value = data.localidade;
+                          document.getElementById('inputUF').value = data.uf;
+  
+                          // Desativar os campos para edição
+                          document.getElementById('inputRua').readOnly = true;
+                          document.getElementById('inputBairro').readOnly = true;
+                          document.getElementById('inputCidade').readOnly = true;
+                          document.getElementById('inputUF').readOnly = true;
+                      } else {
+                          alert('CEP não encontrado!');
+                      }
+                  })
+                  .catch(error => {
+                      console.error('Erro ao buscar o CEP:', error);
+                  });
+          } else {
+              alert('CEP inválido!');
+          }
+      }
+  </script>
+
+</main>
+        
+{% endblock %}

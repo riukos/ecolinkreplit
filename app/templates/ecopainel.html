@@ -1,0 +1,37 @@
+{% extends 'base.html' %} {% block conteudo %}
+
+<main class="main-base">
+
+
+
+    <article class="article-main dashboard">
+        <header>
+            <h1>EcoPainel</h1>
+        </header>
+       
+            <section>
+                <canvas id="grafico-de-barras"></canvas>
+            </section>
+
+            <footer class="footer-article">
+                <a href="/cadastro_empresa"><button class="button-footer-article">Cadastrar Empresa</button> </a>
+
+                <a href="/cadastro_usuario"><button class="button-footer-article">Cadastrar Usuário</button> </a>
+
+                <a href="/cadastro_produto_reciclavel"><button class="button-footer-article">Consultar Venda</button> </a>
+                
+                <a href="/venda"><button class="button-footer-article">Cadastrar Venda</button> </a>
+
+                <a href="/editar_usuario"><button class="button-footer-article">Editar Usuario</button> </a>
+
+                <a href="/consultar_venda"><button class="button-footer-article">Consultar Venda</button> </a>
+            </footer>
+       
+    </article>
+
+   
+
+    
+
+</main>
+{% endblock %}

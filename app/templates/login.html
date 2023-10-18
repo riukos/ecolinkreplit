@@ -1,0 +1,38 @@
+{% extends 'base.html' %} {% block conteudo %}
+
+<main class="main-base">
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for mensagem
+  in messages %}
+  <div class="alert alert-success" role="alert">{{ mensagem }}</div>
+  {% endfor %} {% endif %} {% endwith %}
+
+  <form action="{{ url_for('login') }}" method="post">
+    <h2 class="titulo-form">Login</h2>
+    <!-- A ideia era botar a logo aqui -->
+
+    <label class="texto-label" for="entrada">CPF/CNPJ:</label>
+    <input
+      type="text"
+      id="entrada"
+      name="entrada"
+      
+      placeholder="Digite o CPF ou CNPJ"
+      required
+    />
+
+    <label class="texto-label" for="senha">Senha:</label>
+    <input
+      type="password"
+      id="senha"
+      name="senha"
+      placeholder="Digite sua senha"
+      required
+    />
+
+    <input class="botao-entrar" type="submit" value="Entrar" />
+
+    <p><a href="esqueceu_senha.html">Esqueci minha senha</a></p>
+    <p><a href="contato.html">Não tem cadastro? Fale conosco.</a></p>
+  </form>
+</main>
+{% endblock %}

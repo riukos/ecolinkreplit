@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<section class="main-content">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for mensagem in messages %}
+  <div class="alert alert-success" role="alert">
+    {{ mensagem }}
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <h2 class="mb-4">Cadastro de Produto Reciclável</h2>
+  <form action="{{ url_for('cadastro_produto_reciclavel') }}" method="post">
+    {{ form_reciclavel.csrf_token }}
+        <div class="form_reciclavel-row">
+          <div class="col-md-6 mb-3">
+            <label for="nome_do_material">Nome do Material</label>
+            {{ form_reciclavel.nome_do_material(class="form_reciclavel-control", placeholder="Nome do Material") }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="tipo_material">Tipo de Material</label>
+            {{ form_reciclavel.tipo_material(class="form_reciclavel-control") }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="preco_kg">Preço por Quilograma</label>
+            {{ form_reciclavel.preco_kg(class="form_reciclavel-control", placeholder="Preço por Quilograma") }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="valor_venda_moeda_virtual">Valor de Venda em Moeda Virtual</label>
+            {{ form_reciclavel.valor_venda_moeda_virtual(class="form_reciclavel-control", placeholder="Valor de Venda em Moeda Virtual") }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="valor_venda_corrente">Valor de Venda em Moeda Corrente</label>
+            {{ form_reciclavel.valor_moeda_corrente(class="form_reciclavel-control", placeholder="Valor de Venda em Moeda Corrente") }}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+      </form_reciclavel>
+{% endblock %}

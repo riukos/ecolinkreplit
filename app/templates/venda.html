@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<main class="main-base">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for mensagem in messages %}
+      <div class="alert alert-success" role="alert">
+          {{ mensagem }}
+      </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  <article class="cadastro-funcionario">
+  <h2 class="mb-4">Venda</h2>
+  <form method="POST">
+    <label for="id_material">Selecione o Material:</label>
+    <select name="id_material" id="id_material">
+        {% for material in materiais %}
+            <option value="{{ material.id_material }}">{{ material.nome_do_material }}</option>
+        {% endfor %}
+    </select>
+
+    <form action="{{ url_for('venda') }}" method="post">
+      {{ form_venda.csrf_token }}
+          <label class="texto-label" for="id_material">Codigo do produto</label>
+          {{ form_venda.id_material(class="form_venda-control", placeholder="Digite aqui o Codigo do produto") }}
+        
+          <label class="texto-label" for="valor_venda">Valor da Venda</label>
+          {{ form_venda.valor_venda(class="form_venda-control", placeholder="Digite aqui o valor da venda") }}
+          <label class="texto-label" for="valor_ecoin">Valor Ecoin</label>
+          {{ form_venda.valor_ecoin(class="form_venda-control", placeholder="Digite aqui o em ecoin") }}
+  
+      {{ form_venda.enviar(class="btn btn-primary")}} 
+    </form>
+  </article>
+  </main>
+{% endblock %}

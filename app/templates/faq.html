@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block conteudo %}
+  <h2>Perguntas Frequentes</h2>
+  
+  <div class="accordion" id="faqAccordion">
+    <div class="card">
+      <div class="card-header" id="pergunta1">
+        <h5 class="mb-0">
+          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#resposta1" aria-expanded="true" aria-controls="resposta1">
+            Como faço para entrar em contato com a equipe de suporte?
+          </button>
+        </h5>
+      </div>
+
+      <div id="resposta1" class="collapse show" aria-labelledby="pergunta1" data-parent="#faqAccordion">
+        <div class="card-body">
+          Você pode entrar em contato com nossa equipe de suporte através do formulário de contato na página <a href="/contato">Contato</a>.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" id="pergunta2">
+        <h5 class="mb-0">
+          <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#resposta2" aria-expanded="false" aria-controls="resposta2">
+            Como faço para criar uma conta em nosso site?
+          </button>
+        </h5>
+      </div>
+      <div id="resposta2" class="collapse" aria-labelledby="pergunta2" data-parent="#faqAccordion">
+        <div class="card-body">
+          Para criar uma conta, visite a página <a href="/cadastro">Cadastro</a> e siga as instruções fornecidas.
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+{% endblock %}
